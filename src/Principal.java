@@ -18,13 +18,14 @@ public class Principal {
         
         int opcao; 
         do{ //Início da estrutura do do-while
-             System.out.println("\n ------ Menu ------  \n");
+             System.out.println("\n Menu  \n");
              System.out.println("1- Cadastrar");
              System.out.println("2- Imprimir");
              System.out.println("3- Excluir");
              System.out.println("4- Buscar");
              System.out.println("5- Ordenar");
-             System.out.println("6- Sair");
+             System.out.println("6- Modificar");
+             System.out.println("7- Sair");
              System.out.print("Digite a opção desejada: ");
              opcao = entrada.nextInt(); //Usuário digita e armazena na variável inteira opcao
 
@@ -104,10 +105,20 @@ public class Principal {
                     }else{
                         System.out.println("Opção Inválida.");
                     }
-                }      
+                }
+                break;
+            case 6:
+                 escolhaTipoCarro(); //Invoca método escolhaTipoCarro para usuário escolher entre Carro e Carro usado
+                 int opc6 = entrada.nextInt();
+                if(opc6==1){
+                    modificar(estoque);        
+                }else if(opc6==2){
+                    modificarUsado(estoqueUsados);
+                }
             }
+        
                       
-    }while (opcao != 6); //Fim da Estrutura do-while caso a variável "opcao" seja 5
+    }while (opcao != 7); //Fim da Estrutura do-while caso a variável "opcao" seja 5
         System.out.println("Programa encerrado, volte sempre!");
     }
     
@@ -129,12 +140,106 @@ public class Principal {
         return -1;  //Se não, retorna -1
     }
     
+   
+    
     public static String indiquePlaca(){ //Criação da função do tipo String indiquePlaca
        String placa;
        Scanner entrada = new Scanner(System.in);
         System.out.println("Escolha a placa do carro:");
         placa = entrada.next(); //Usuário digita String que é armazenada na variável "placa"
         return placa; //Função retorna String "placa"
+    }
+    
+    public static void modificar(ArrayList<Carro> lista){
+       Scanner entrada = new Scanner(System.in);
+       String placa;
+       placa = indiquePlaca(); //Invocação da função indiquePlaca, atribuindo o retorno a variável "placa"
+       int i;
+       i = encontrarCarro(placa, lista);  //Invocação da função encontrarCarro passando como parâmetro String "placa" e ArrayList<Carro> lista, atribuindo o retorno a variável "i"
+       if (i>=0){ //Se "i" for maior ou igual a zero
+           System.out.println("Deseja modificar:\n1-Nome\n2-Marca\n3-Placa\n4-Ano\n5-Preco");
+           System.out.println("Digite a opção desejada: ");
+           int escolha = entrada.nextInt();
+         switch(escolha){ //Switch para escolher o atributo que será modificado
+             case 1:
+                 System.out.println("Digite o novo nome:");
+                 String novoNome = entrada.next();
+                 lista.get(i).setNome(novoNome); //Usar o Set do atributo para aplicar o novo nome do atributo
+                 break;
+             case 2:
+                 System.out.println("Digite o nova marca:");
+                 String novaMarca = entrada.next();
+                 lista.get(i).setMarca(novaMarca);
+                 break;
+             case 3:
+                 System.out.println("Digite o nova placa:");
+                 String novaPlaca = entrada.next();
+                 lista.get(i).setPlaca(novaPlaca);
+                 break;
+            case 4:
+                 System.out.println("Digite o novo ano:");
+                 int novoAno = entrada.nextInt();
+                 lista.get(i).setAno(novoAno);
+                 break;
+            case 5:
+                 System.out.println("Digite o novo preco:");
+                 double novoPreco = entrada.nextDouble();
+                 lista.get(i).setPreco(novoPreco);
+                 break;
+         }
+                  
+       }else{}
+    }
+    
+    public static void modificarUsado(ArrayList<CarroUsado> lista){
+        Scanner entrada = new Scanner(System.in);
+         String placa;
+       placa = indiquePlaca(); //Invocação da função indiquePlaca, atribuindo o retorno a variável "placa"
+       int i;
+       i = encontrarCarroUsado(placa, lista);  //Invocação da função encontrarCarro passando como parâmetro String "placa" e ArrayList<Carro> lista, atribuindo o retorno a variável "i"
+       if (i>=0){ //Se "i" for maior ou igual a zero
+           System.out.println("Deseja modificar:\n1-Nome\n2-Marca\n3-Placa\n4-Ano\n5-Preco\n6-Km rodados\n7-Reparos necessários");
+           System.out.println("Digite a opção desejada: ");
+           int escolha = entrada.nextInt();
+         switch(escolha){
+             case 1:
+                 System.out.println("Digite o novo nome:");
+                 String novoNome = entrada.next();
+                 lista.get(i).setNome(novoNome);
+                 break;
+             case 2:
+                 System.out.println("Digite o nova marca:");
+                 String novaMarca = entrada.next();
+                 lista.get(i).setMarca(novaMarca);
+                 break;
+             case 3:
+                 System.out.println("Digite o nova placa:");
+                 String novaPlaca = entrada.next();
+                 lista.get(i).setPlaca(novaPlaca);
+                 break;
+            case 4:
+                 System.out.println("Digite o novo ano:");
+                 int novoAno = entrada.nextInt();
+                 lista.get(i).setAno(novoAno);
+                 break;
+            case 5:
+                 System.out.println("Digite o novo preco:");
+                 double novoPreco = entrada.nextDouble();
+                 lista.get(i).setPreco(novoPreco);
+                 break;
+            case 6:
+                System.out.println("Digite os novos km rodados:");
+                 double novoKm = entrada.nextDouble();
+                 lista.get(i).setKmRodados(novoKm);
+                 break;
+            case 7:
+                System.out.println("Digite os novos km rodados:");
+                 String novoReparos = entrada.next();
+                 lista.get(i).setReparosNecessarios(novoReparos);
+                 break;  
+         }
+                  
+       }else{}
     }
     
     public static void buscar(ArrayList<Carro> lista){ //Criação da função do tipo void "buscar" recebendo como parâmetro ArrayList do tipo Carro
@@ -330,7 +435,7 @@ public class Principal {
     public static void ordernarCresc(ArrayList<Carro> lista){ //Criação da função para ordenar objetos do ArrayList com base no atributo "preco" em ordem crescente
         for(int i=0; i<lista.size(); i++){ 
             for(int j=i+1; j<lista.size(); j++){ 
-                if(lista.get(i).getPreco()>lista.get(j).getPreco()){  //Troca "lista" na posição "i" pela posição "j" caso "preco" na posição "i" seja maior que na posição "j" através da API Collections
+                if(lista.get(i).getPreco()>lista.get(j).getPreco()){ 
                    Collections.swap(lista, i, j);
                 }   
             }
@@ -341,27 +446,27 @@ public class Principal {
         for(int i=0; i<lista.size(); i++){
             for(int j=i+1; j<lista.size(); j++){
                 if(lista.get(i).getPreco()<lista.get(j).getPreco()){
-                   Collections.swap(lista, i, j); //Troca "lista" na posição "i" pela posição "j" caso "preco" na posição "i" seja menor que na posição "j" através da API Collections
+                   Collections.swap(lista, i, j);
                 }   
             }
         }
     }
 
-public static void ordernarCrescUsado(ArrayList<CarroUsado> lista){ //Criação da função para ordenar objetos do ArrayList com base no atributo "KmRodados" em ordem crescente
+public static void ordernarCrescUsado(ArrayList<CarroUsado> lista){ //Criação da função para ordenar objetos do ArrayList com base no atributo "preco" em ordem crescente
         for(int i=0; i<lista.size(); i++){
             for(int j=i+1; j<lista.size(); j++){
-                if(lista.get(i).getKmRodados()>lista.get(j).getKmRodados()){ //Troca "lista" na posição "i" pela posição "j" caso "KmRodados" na posição "i" seja maior que na posição "j" através da API Collections
+                if(lista.get(i).getKmRodados()>lista.get(j).getKmRodados()){
                    Collections.swap(lista, i, j);
                 }   
             }
         }
     }
     
-    public static void ordernarDecrescUsado(ArrayList<CarroUsado> lista){ //Criação da função para ordenar objetos do ArrayList com base no atributo "KmRodados" em ordem decrescente
+    public static void ordernarDecrescUsado(ArrayList<CarroUsado> lista){ //Criação da função para ordenar objetos do ArrayList com base no atributo "preco" em ordem decrescente
         for(int i=0; i<lista.size(); i++){
             for(int j=i+1; j<lista.size(); j++){
                 if(lista.get(i).getKmRodados()<lista.get(j).getKmRodados()){
-                   Collections.swap(lista, i, j); //Troca "lista" na posição "i" pela posição "j" caso "KmRodados" na posição "i" seja menor que na posição "j" através da API Collections
+                   Collections.swap(lista, i, j);
                 }   
             }
         }
