@@ -18,7 +18,7 @@ public class Principal {
         
         int opcao; 
         do{ //Início da estrutura do do-while
-             System.out.println("\n Menu  \n");
+             System.out.println("\n------ Menu ------\n");
              System.out.println("1- Cadastrar");
              System.out.println("2- Imprimir");
              System.out.println("3- Excluir");
