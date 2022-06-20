@@ -233,7 +233,7 @@ public class Principal {
                  lista.get(i).setKmRodados(novoKm);
                  break;
             case 7:
-                System.out.println("Digite os novos km rodados:");
+                System.out.println("Digite os novos reparos necessários:");
                  String novoReparos = entrada.next();
                  lista.get(i).setReparosNecessarios(novoReparos);
                  break;  
